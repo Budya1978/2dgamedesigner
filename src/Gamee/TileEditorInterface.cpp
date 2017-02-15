@@ -62,7 +62,7 @@ TileEditorInterface::TileEditorInterface()
     restoreGeometry(settings.value("mainwindow_geometry").toByteArray());
     restoreState(settings.value("mainwindow_state").toByteArray());
 
-    UpdateCheckboxes();
+    //UpdateCheckboxes();
     connect(_propertiesDock, SIGNAL(onClose()), this, SLOT(PropertiesCheckbox()));
     connect(_listDock, SIGNAL(onClose()), this, SLOT(ResourcesCheckbox()));
 
@@ -87,6 +87,7 @@ void TileEditorInterface::Update()
         }
         ShowHelloWindow();
     }
+    UpdateCheckboxes();
     _tileEditor->Update(dt);
     _tileEditor->updateGL();
 }
