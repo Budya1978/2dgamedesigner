@@ -55,6 +55,12 @@ void TileEditor::LoadTemplates(const rapidxml::xml_document<> &doc)
         }
         elem = elem->first_node("Definitions")->first_node();
 
+        int n = 12;
+        int i = 0;
+        QProgressDialog* plprd = new QProgressDialog("Load the project...", "&Cancel", 0, n);
+        plprd->setMinimumDuration(0);
+        plprd->setWindowTitle("Please Wait");
+
         std::string typeName;
         std::string caption;
         while (elem != NULL) {
@@ -123,12 +129,17 @@ void TileEditor::LoadTemplates(const rapidxml::xml_document<> &doc)
             }
             if (b)
             {
+                i++;
+                plprd->setValue(i) ;
+                qApp->processEvents();
                 caption = (b->UserString() != "" ? ("\"" + b->UserString() + "\" ") : "") + caption;
                 _collection.push_back(b);
                 TileEditorInterface::Instance()->GetCollectionControl()->AddItem(b, caption);
             }
             elem = elem->next_sibling();
         }
+        plprd->setValue(n) ;
+        delete plprd;
     }
 }
 

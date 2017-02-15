@@ -5,6 +5,7 @@
 #include <QGLPixelBuffer>
 #include <QTreeWidgetItem>
 #include <QGLFramebufferObject>
+#include <QProgressDialog>
 
 #include "../Core/Messager.h"
 #include "../Core/ogl/render.h"
