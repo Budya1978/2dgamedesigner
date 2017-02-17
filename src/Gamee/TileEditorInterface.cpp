@@ -85,9 +85,10 @@ void TileEditorInterface::Update()
             settings.setValue("lastproject", "");
             OpenProjectCallback(path);
         }
+        UpdateCheckboxes();
         ShowHelloWindow();
     }
-    UpdateCheckboxes();
+
     _tileEditor->Update(dt);
     _tileEditor->updateGL();
 }
