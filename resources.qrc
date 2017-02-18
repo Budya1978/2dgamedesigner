@@ -10,4 +10,7 @@
         <file>gfx/beautytext.png</file>
         <file>gfx/folder.png</file>
     </qresource>
+    <qresource prefix="/processloaddialog">
+        <file>gfx/loading.gif</file>
+    </qresource>
 </RCC>
