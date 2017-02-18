@@ -11,6 +11,7 @@
 #include "../Core/InputSystem.h"
 #include "../Core/rapidxml/rapidxml_print.hpp"
 #include "../Atlas/DataContainer.h"
+#include "../Core/progressloaddialog/progressloaddialog.h"
 
 #include "TileEditor.h"
 #include "BeautyText.h"
@@ -55,11 +56,8 @@ void TileEditor::LoadTemplates(const rapidxml::xml_document<> &doc)
         }
         elem = elem->first_node("Definitions")->first_node();
 
-        int n = 12;
-        int i = 0;
-        QProgressDialog* plprd = new QProgressDialog("Load the project...", "&Cancel", 0, n);
-        plprd->setMinimumDuration(0);
-        plprd->setWindowTitle("Please Wait");
+        ProgressLoadDialog *dialog = new ProgressLoadDialog();
+        dialog->show();
 
         std::string typeName;
         std::string caption;
@@ -129,17 +127,16 @@ void TileEditor::LoadTemplates(const rapidxml::xml_document<> &doc)
             }
             if (b)
             {
-                i++;
-                plprd->setValue(i) ;
-                qApp->processEvents();
                 caption = (b->UserString() != "" ? ("\"" + b->UserString() + "\" ") : "") + caption;
+                dialog->setNameLoadFile(caption.c_str());
+                qApp->processEvents();
                 _collection.push_back(b);
                 TileEditorInterface::Instance()->GetCollectionControl()->AddItem(b, caption);
             }
             elem = elem->next_sibling();
         }
-        plprd->setValue(n) ;
-        delete plprd;
+        dialog->close();
+        delete dialog;
     }
 }
 
